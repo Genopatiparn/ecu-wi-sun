@@ -1,0 +1,33 @@
+# Build outputs
+*.o
+*.d
+*.axf
+*.bin
+*.hex
+*.map
+*.out
+*.lst
+
+# Autogen folders
+**/autogen/
+**/GNU ARM*/
+
+# IDE files
+.cproject
+.project
+.settings/
+.pdm/
+*.slsproj
+*.projectlinkstore
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log

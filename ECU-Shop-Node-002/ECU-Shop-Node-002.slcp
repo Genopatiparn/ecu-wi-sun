@@ -1,0 +1,126 @@
+# Silicon Labs Project Configuration Tools: slcp, v0, Component selection file.
+project_name: ECU-Shop-Node-002
+label: ECU-Shop-Node-002
+description: The Wi-SUN Socket sample application demonstrates how to use the Wi-SUN
+  application framework and the POSIX socket APIs to implement a basic TCP/UDP client/server
+  application.
+category: Wi-SUN Examples
+filter:
+- name: Device Type
+  value: [SoC]
+- name: Project Difficulty
+  value: [Beginner]
+- name: Wireless Technology
+  value: [Wi-SUN]
+package: wisun_sample_applications
+quality: production
+readme:
+- {path: readme.md}
+- {path: readme.md}
+source:
+- {path: app.c}
+- {path: app_init.c}
+- {path: app_custom_callback.c}
+include:
+- path: .
+  file_list:
+  - {path: app.h}
+  - {path: app_custom_callback.h}
+sdk: {id: simplicity_sdk, version: 2025.6.3}
+toolchain_settings:
+- {value: debug, option: optimize}
+component:
+- {id: EFR32FG25B222F1920IM56}
+- {id: board_control}
+- {id: brd4002a}
+- {id: brd4270b}
+- {id: clock_manager}
+- {id: device_init}
+- instance: [vcom]
+  id: iostream_eusart
+- {id: iostream_retarget_stdio}
+- {id: micriumos_kernel}
+- {id: nvm3_default}
+- {id: radio_config_brd_wisun_singlephy}
+- {id: restrictions_profile_wisun_fan_1_0}
+- {id: restrictions_profile_wisun_fan_1_1}
+- {id: restrictions_profile_wisun_han}
+- {id: segger_rtt}
+- {id: sl_main}
+- {id: sl_wisun_app_core}
+- {id: sl_wisun_app_setting}
+- {id: sl_wisun_trace_util}
+- {id: sleeptimer}
+- {id: wisun_stack}
+- {id: wisun_stack_debug}
+- {id: wisun_stack_ffn}
+- {id: wisun_stack_lfn}
+other_file:
+- {path: readme_img0.png}
+- {path: readme_img1.png}
+- {path: readme_img2.png}
+define:
+- {name: DEBUG_EFM}
+requires:
+- {name: cmsis_rtos2}
+configuration:
+- {name: SL_MAIN_START_TASK_STACK_SIZE_BYTES, value: '2048'}
+- {name: SL_BOARD_ENABLE_VCOM, value: '1'}
+- {name: SL_CLI_LOCAL_ECHO, value: (1)}
+- {name: SL_IOSTREAM_USART_VCOM_FLOW_CONTROL_TYPE, value: usartHwFlowControlCtsAndRts}
+- {name: SL_IOSTREAM_USART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF, value: '1'}
+- {name: SL_IOSTREAM_EUSART_VCOM_FLOW_CONTROL_TYPE, value: SL_IOSTREAM_EUSART_UART_FLOW_CTRL_CTS_RTS}
+- {name: SL_IOSTREAM_EUSART_VCOM_CONVERT_BY_DEFAULT_LF_TO_CRLF, value: '1'}
+- condition: [iostream_usart]
+  name: SL_IOSTREAM_USART_VCOM_RX_BUFFER_SIZE
+  value: '128'
+- condition: [iostream_eusart]
+  name: SL_IOSTREAM_EUSART_VCOM_RX_BUFFER_SIZE
+  value: '128'
+- condition: [iostream_leuart]
+  name: SL_IOSTREAM_LEUART_VCOM_RX_BUFFER_SIZE
+  value: '128'
+- condition: [micriumos_kernel]
+  name: OS_CFG_APP_HOOKS_EN
+  value: '1'
+- condition: [freertos]
+  name: configUSE_POSIX_ERRNO
+  value: '1'
+- condition: [micriumos_kernel]
+  name: OS_CFG_ERRNO_EN
+  value: '1'
+- {name: APP_PROJECT_INFO_WISUN_VERSION_ENABLED, value: '1'}
+- {name: APP_PROJECT_INFO_MBEDTLS_VERSION_ENABLED, value: '1'}
+- {name: SL_RAIL_UTIL_PTI_BAUD_RATE_HZ, value: '3200000'}
+- condition: [sl_wisun_ota_dfu]
+  name: SL_SLEEPTIMER_WALLCLOCK_CONFIG
+  value: '1'
+- condition: [iostream_eusart, power_manager]
+  name: SL_IOSTREAM_EUSART_INSTANCE_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION
+  value: '0'
+- condition: [iostream_eusart, power_manager]
+  name: SL_IOSTREAM_EUSART_VCOM_BAUDRATE
+  value: '9600'
+- condition: [iostream_eusart, power_manager]
+  name: SL_IOSTREAM_EUSART_VCOM_ENABLE_HIGH_FREQUENCY
+  value: '0'
+- condition: [iostream_eusart, power_manager]
+  name: SL_IOSTREAM_EUSART_VCOM_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION
+  value: '0'
+- condition: [iostream_leuart, power_manager]
+  name: SL_IOSTREAM_LEUART_VCOM_RESTRICT_ENERGY_MODE_TO_ALLOW_RECEPTION
+  value: '0'
+- condition: [iostream_leuart, power_manager]
+  name: SL_CLOCK_MANAGER_EUSART0CLK_SOURCE
+  value: CMU_EUSART0CLKCTRL_CLKSEL_LFXO
+- condition: [iostream_eusart, power_manager]
+  name: SL_CLOCK_MANAGER_EUSART0CLK_SOURCE
+  value: CMU_EUSART0CLKCTRL_CLKSEL_LFXO
+- {name: APP_PROJECT_INFO_APP_VERSION_MAJOR, value: '2'}
+- {name: APP_PROJECT_INFO_APP_VERSION_MINOR, value: '1'}
+- {name: APP_PROJECT_INFO_APP_VERSION_PATCH, value: '0'}
+ui_hints:
+  highlight:
+  - {path: config/wisun/wisun_settings.wisunconf}
+  - {path: readme.md, focus: true}
+
